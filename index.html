@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英語教室 お問い合わせフォーム</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css"> <!-- 外部CSSを読み込み -->
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">英語教室 お問い合わせフォーム</h2>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">お名前（保護者）<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="childName">お子様のお名前</label>
+                <input type="text" class="form-control" id="childName">
+            </div>
+            <div class="form-group">
+                <label for="email">メールアドレス<span class="text-danger"> *</span></label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="category">お問い合わせカテゴリ</label>
+                <select class="form-control" id="category">
+                    <option value="体験レッスンの申し込み">体験レッスンの申し込み</option>
+                    <option value="クラス・レッスンについて">クラス・レッスンについて</option>
+                    <option value="入会・退会について">入会・退会について</option>
+                    <option value="スケジュールや欠席対応について">スケジュールや欠席対応について</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">お問い合わせ内容</label>
+                <textarea class="form-control" id="message" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">送信</button>
+        </form>
+        <p id="responseMessage" class="text-center mt-3"></p>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const childName = document.getElementById('childName').value;
+            const email = document.getElementById('email').value;
+            const category = document.getElementById('category').value;
+            const message = document.getElementById('message').value;
+
+            fetch('YOUR_GOOGLE_SCRIPT_URL', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, childName, email, category, message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('responseMessage').innerText = '送信が完了しました。ありがとうございました！';
+                document.getElementById('contactForm').reset();
+            })
+            .catch(error => {
+                document.getElementById('responseMessage').innerText = '送信中にエラーが発生しました。再度お試しください。';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+

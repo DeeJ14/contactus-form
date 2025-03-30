@@ -34,7 +34,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="message">お問い合わせ内容</label>
+                <label for="message">お問い合わせ内容3</label>
                 <textarea class="form-control" id="message" rows="5"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-block">送信</button>
@@ -52,7 +52,7 @@
             const category = document.getElementById('category').value;
             const message = document.getElementById('message').value;
 
-            fetch('YOUR_GOOGLE_SCRIPT_URL', {
+            fetch('https://script.google.com/macros/s/AKfycbwINO1S7gFVglqnRMV7MX80Gf8NCX2OL8R_RW03ecAyw6yr1vG1qQoFfeCEMySGsKkrqg/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
